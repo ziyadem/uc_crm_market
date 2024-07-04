@@ -1,0 +1,202 @@
+*{
+  box-sizing: border-box !important;
+  
+}
+
+p{
+    margin: 0 !important
+}
+.category-edit-icon{
+    cursor: pointer;
+}
+.login{
+  height: 100vh;
+}
+.userInfo{
+  height: 100vh;
+}
+
+/* .list{
+  height: 35em;
+  overflow-y: auto;
+} */
+.page{
+  height: 100vh;
+}
+.page_div{
+  height: 95vh;
+  width: 100%;
+}
+.page_card{
+  height: 95vh !important;
+}
+.scroll_card_main{
+  height: 27vh;
+  background-color: blue;
+}
+.scroll_card{
+  height: 65vh;
+  background-color: red;
+  overflow-y: auto;
+}
+
+.vh_height{
+  height: 100vh !important;
+}
+
+.active-toggle, .inactive-toggle {
+  cursor: pointer;
+  width: 4rem;
+  height: 2rem;
+  border: 1px solid #9f9b9b;
+  background-color: #ccc;
+  border-radius: 34px;
+  -webkit-transition: .4s;
+  transition: .4s;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-round {
+  height: 1.5em;
+  width: 1.5rem;
+  margin-left: 0.2rem;
+  border-radius: 50%;
+}
+.active-toggle .toggle-round {
+  -webkit-transform: translateX(1.5rem);
+  -ms-transform: translateX(1.5rem);
+  transform: translateX(2rem);
+  background-color:  #198754;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.inactive-toggle .toggle-round {
+  background-color:  white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.react-switch-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.react-switch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  background: grey;
+  border-radius: 100px;
+  position: relative;
+  transition: background-color .2s;
+}
+
+.react-switch-label .react-switch-button {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: #fff;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.react-switch-label:active .react-switch-button {
+  width: 60px;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.falseslider,.trueslider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.falseslider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+.trueslider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 30px;
+  bottom: 4px;
+  background-color: #198754;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .falseslider:before {
+   background-color: #198754;
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input:checked + .trueslider:before {
+  background-color: white;
+  -webkit-transform: translateX(-26px);
+  -ms-transform: translateX(-26px);
+  transform: translateX(-26px);
+}
+.borderY{
+  border-top: 2.5px dashed;
+  border-bottom: 2.5px dashed;
+  margin:10px 0;
+}
+
+.scrol_card{
+  height: 70vh;
+  overflow-y: auto;
+}
+.scrol_card1{
+  height: 52vh;
+  overflow-y: auto;
+}
+.scrol_card2{
+  height: 60vh;
+  overflow-y: auto;
+}

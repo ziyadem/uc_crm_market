@@ -1,0 +1,158 @@
+datasource db {
+    url=env("DATABASE_URL")
+    provider = "postgresql"
+    extensions = [uuidOssp(map: "uuid-ossp")]
+}
+
+generator create {
+    provider="prisma-client-js"
+    previewFeatures = ["postgresqlExtensions"]
+}
+model Role{
+    id           String    @map("id")            @db.Uuid()          @default(uuid())
+    name         String    @map("name")          @db.VarChar(250) 
+    
+    user User[]
+    employee Employee[]
+
+    @@id([id])
+    @@unique([name])
+    @@map("roles")
+}
+model User{
+    id           String    @map("id")              @db.Uuid()    @default(uuid())
+    username     String    @map("login")           @db.VarChar() 
+    password     String    @map("password")        @db.VarChar() 
+    roleId       String    @map("role_id")         @db.Uuid() 
+    telegramId   String?   @map("telegram_id")     @db.VarChar(11) 
+    createdAt    DateTime  @map("created_at")      @db.Timestamp(0) @default(now())
+    updatedAt    DateTime  @map("updated_at")      @db.Timestamp(0) @updatedAt
+
+    company Company[]
+    role Role @relation(fields: [roleId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    token Token[]
+    employee Employee[]
+
+    @@id([id])
+    @@unique([username])
+    @@map("users")
+}
+model Token{
+    id              String  @map("id")                   @db.Uuid()          @default(uuid())
+    userId          String  @map("user_id")              @db.Uuid() 
+    accessToken     String  @map("access_token")         @db.VarChar() 
+    refreshToken    String  @map("refresh_token")        @db.VarChar() 
+
+    user User @relation(fields: [userId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+
+    @@id([id])
+    @@unique([userId])
+    @@map("tokens")
+}
+model Company{
+    id           String    @map("id")            @db.Uuid()          @default(uuid())
+    name         String    @map("name")          @db.VarChar(250) 
+    adminId      String    @map("admin_id")      @db.Uuid
+    IsActive     Boolean   @map("isActive")      @db.Boolean()
+    createdAt    DateTime  @map("created_at")    @db.Timestamp(0)    @default(now())
+    updatedAt    DateTime  @map("updated_at")    @db.Timestamp(0)    @updatedAt
+    
+    user User @relation(fields: [adminId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    category Category[]
+    employee Employee[]
+
+
+    @@id([id])
+    @@unique([name])
+    @@map("companys")
+}
+
+model Employee{
+    id           String  @map("id")              @db.Uuid()          @default(uuid())
+    fname        String  @map("fname")           @db.VarChar() 
+    lname        String  @map("lname")           @db.VarChar() 
+    password     String  @map("password")        @db.VarChar() 
+    username     String  @map("username")        @db.VarChar() 
+    phone        String  @map("phone")           @db.VarChar() 
+    email        String  @map("email")           @db.VarChar() 
+    roleId       String  @map("role_id")         @db.Uuid() 
+    IsAvailable  Boolean   @map("isAvailable")   @db.Boolean()
+    companyId    String    @map("company_id")    @db.Uuid()
+    userId       String    @map("user_id")       @db.Uuid()
+    createdAt    DateTime  @map("created_at")    @db.Timestamp(0) @default(now())
+    updatedAt    DateTime  @map("updated_at")    @db.Timestamp(0) @updatedAt
+
+    role Role @relation(fields: [roleId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    company Company @relation(fields: [companyId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    user User @relation(fields: [userId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    mainSale MainSale[]
+    sale Sale[]
+
+    @@id([id])
+    @@map("employee")
+}
+model Category{
+    id           String    @map("id")            @db.Uuid()          @default(uuid())
+    title        String    @map("title")         @db.VarChar(250) 
+    IsAvailable  Boolean   @map("isAvailable")   @db.Boolean()
+    companyId    String    @map("company_id")    @db.Uuid()
+    createdAt    DateTime  @map("created_at")    @db.Timestamp(0)    @default(now())
+    updatedAt    DateTime  @map("updated_at")    @db.Timestamp(0)    @updatedAt
+    
+    company Company @relation(fields: [companyId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    product Product[]
+    
+    @@id([id])
+    @@unique([title,companyId])
+    @@map("categorys")
+}
+model Product{
+    id           String    @map("id")            @db.Uuid()          @default(uuid())
+    title        String    @map("title")         @db.VarChar(250) 
+    price        Int       @map("price")         @db.Integer()
+    IsAvailable  Boolean   @map("isAvailable")   @db.Boolean()
+    categoryId   String    @map("category_id")   @db.Uuid()
+    createdAt    DateTime  @map("created_at")    @db.Timestamp(0)    @default(now())
+    updatedAt    DateTime  @map("updated_at")    @db.Timestamp(0)    @updatedAt
+    
+    category Category @relation(fields: [categoryId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    sale Sale[]
+    
+    @@id([id])
+    @@unique([title,categoryId])
+    @@map("products")
+}
+model MainSale{
+    id            String    @map("id")              @db.Uuid()          @default(uuid())
+    employeeId    String    @map("employee_id")     @db.Uuid()
+    saleNum       Int       @map("sale_num")        @db.Integer()
+    payment       String    @map("payment")         @db.VarChar(50)      
+    priceAll      Int       @map("price")           @db.Integer() 
+    pricePlastic  Int       @map("pricePlastic")    @db.Integer() 
+    priceCash     Int       @map("priceCash")       @db.Integer() 
+    createdAt     DateTime  @map("created_at")      @db.Timestamp(0)    @default(now())
+    deletedAt     DateTime? @map("deleted_at")      @db.Timestamp(0)
+    
+    employee Employee @relation(fields: [employeeId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    sale Sale[]
+
+    @@id([id])
+    @@map("mainSales")
+}
+model Sale{
+    id            String    @map("id")              @db.Uuid()          @default(uuid())
+    mainSaleId    String    @map("mainSaleId")      @db.Uuid()
+    productId     String    @map("product_id")      @db.Uuid()
+    employeeId    String    @map("employee_id")     @db.Uuid()
+    count         Int       @map("count")           @db.Integer()
+    createdAt     DateTime  @map("created_at")      @db.Timestamp(0)    @default(now())
+    deletedAt     DateTime? @map("deleted_at")      @db.Timestamp(0)
+
+
+    employee Employee @relation(fields: [employeeId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    mainSale MainSale @relation(fields: [mainSaleId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+    product Product @relation(fields: [productId], references: [id],onDelete: Cascade,onUpdate: NoAction)
+
+    @@id([id])
+    @@map("sales")
+}
