@@ -1,11 +1,11 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import logOut from "../../functions/log-out"
-import Back from "../Back"
-import React from "react"
+import { useLocation, useNavigate } from "react-router-dom";
+import logOut from "../../functions/log-out";
+import Back from "../back";
+import React from "react";
 
 const Header = () => {
-  let { pathname } = useLocation()
-  let navigate=useNavigate()
+  let { pathname } = useLocation();
+  let navigate = useNavigate();
 
   return (
     <header className="row row-cols-1 row-cols-sm-2">
