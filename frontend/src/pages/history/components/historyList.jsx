@@ -1,7 +1,7 @@
 import useDelete from "../../../hooks/useDelete";
 import usePatch from "../../../hooks/usePatch";
 import { getData } from "../../../store/data";
-import Back from "../../../components/Back";
+import Back from "../../../components/back";
 import useGet from "../../../hooks/useGet";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -13,7 +13,7 @@ const HistoryList = () => {
   let [sales, loading] = useGet(`/sale`, reload);
   let status_name = localStorage.getItem("status_name");
 
-  console.log(date,'date');
+  console.log(date, "date");
 
   async function deleteSale(e) {
     let a = await useDelete(`/sale/${e}`);

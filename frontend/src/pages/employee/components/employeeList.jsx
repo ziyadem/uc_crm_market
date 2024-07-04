@@ -4,12 +4,12 @@ import useGet from "../../../hooks/useGet";
 import usePatch from "../../../hooks/usePatch";
 import { rerender } from "../../../store/rerender";
 import { getData } from "../../../store/data";
-import Back from "../../../components/Back";
+import Back from "../../../components/back";
 
 const EmployeeList = () => {
   const { status, reload } = useSelector((s) => s);
-  let [employees, loading] = useGet(`employee`,reload)
-  let dispatch=useDispatch()
+  let [employees, loading] = useGet(`employee`, reload);
+  let dispatch = useDispatch();
 
   // employee IsAvailable sort
   let employee = [];
@@ -34,7 +34,7 @@ const EmployeeList = () => {
   return (
     <div className="p-1">
       <div className="border rounded-5 bg-secondary p-2 bg-opacity-25 h-100">
-        <div >
+        <div>
           <Back />
           <div className=" p-2">
             <Status />
@@ -54,44 +54,44 @@ const EmployeeList = () => {
                 <h5 className="fw-bold m-0">{employees.user?.username}</h5>
                 <p className="text-secondary">Admin</p>
               </div>
-              <div  className="scrol_card1">
-              {employee?.map((e) => {
-                return (
-                  <div
-                    key={e.id}
-                    className="border rounded bg-white w-100 p-3 mb-3 d-flex justify-content-between align-items-center"
-                  >
-                    <div>
-                      <h5
-                        className="fw-bold m-0"
-                        onClick={() => dispatch(getData({ updId: e.id }))}
-                      >
-                        {e.fname} {e.lname}
-                      </h5>
-                      <p>
-                        {e.username} /{" "}
-                        <span className="text-secondary">kassir</span>
-                      </p>
+              <div className="scrol_card1">
+                {employee?.map((e) => {
+                  return (
+                    <div
+                      key={e.id}
+                      className="border rounded bg-white w-100 p-3 mb-3 d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <h5
+                          className="fw-bold m-0"
+                          onClick={() => dispatch(getData({ updId: e.id }))}
+                        >
+                          {e.fname} {e.lname}
+                        </h5>
+                        <p>
+                          {e.username} /{" "}
+                          <span className="text-secondary">kassir</span>
+                        </p>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center gap-1">
+                        <p className="text-secondary">{status.status}</p>
+                        <label className="switch">
+                          <input type="checkbox" />
+                          <span
+                            className={
+                              status.status == "active"
+                                ? "trueslider"
+                                : "falseslider"
+                            }
+                            onClick={() =>
+                              block({ id: e.id, IsAvailable: e.IsAvailable })
+                            }
+                          ></span>
+                        </label>
+                      </div>
                     </div>
-                    <div className="d-flex justify-content-between align-items-center gap-1">
-                      <p className="text-secondary">{status.status}</p>
-                      <label className="switch">
-                        <input type="checkbox" />
-                        <span
-                          className={
-                            status.status == "active"
-                              ? "trueslider"
-                              : "falseslider"
-                          }
-                          onClick={() =>
-                            block({ id: e.id, IsAvailable: e.IsAvailable })
-                          }
-                        ></span>
-                      </label>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
               </div>
             </div>
           ) : (

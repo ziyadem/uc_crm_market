@@ -1,16 +1,16 @@
-import CategoryListEmployee from "./components/categoryListEmployee"
-import CategoryListAdmin from "./components/categoryListAdmin"
-import Desktop from "../../components/desctop"
-import Header from "../../components/header"
-import HeroCard from "./components/heroCard"
-import Back from "../../components/Back"
+import CategoryListEmployee from "./components/categoryListEmployee";
+import CategoryListAdmin from "./components/categoryListAdmin";
+import Desktop from "../../components/desctop";
+import Header from "../../components/header";
+import HeroCard from "./components/heroCard";
+import Back from "../../components/back";
 
 const Categories = () => {
-  let status_name=localStorage.getItem('status_name')
+  let status_name = localStorage.getItem("status_name");
 
   return (
     <>
-      { status_name === "admin" ? (
+      {status_name === "admin" ? (
         <section className="p-3 page">
           <div className="border border-secondary border-opacity-50  rounded-5 bg-secondary bg-opacity-25 p-3 h-100">
             <Header />
@@ -33,6 +33,6 @@ const Categories = () => {
       )}
     </>
   );
-}
+};
 
-export default Categories
+export default Categories;

@@ -1,17 +1,17 @@
-import ProductList from "./components/productListAdmin"
-import Desktop from "../../components/desctop"
-import Header from "../../components/header"
-import HeroCard from "./components/heroCard"
-import Back from "../../components/Back"
-import ProductListEmployee from "./components/productListEmployee"
+import ProductList from "./components/productListAdmin";
+import Desktop from "../../components/desctop";
+import Header from "../../components/header";
+import HeroCard from "./components/heroCard";
+import Back from "../../components/back";
+import ProductListEmployee from "./components/productListEmployee";
 
 const Products = () => {
-  let status_name = localStorage.getItem("status_name")
+  let status_name = localStorage.getItem("status_name");
 
   return (
     <>
       {status_name === "admin" ? (
-       <section className="p-3 page">
+        <section className="p-3 page">
           <div className="border border-secondary border-opacity-50  rounded-5 bg-secondary bg-opacity-25 p-3 h-100">
             <Header />
             <HeroCard />
@@ -33,6 +33,6 @@ const Products = () => {
       )}
     </>
   );
-}
+};
 
-export default Products
+export default Products;
